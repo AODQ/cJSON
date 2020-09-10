@@ -114,7 +114,7 @@ typedef struct cJSON
     /* The item's string, if type==cJSON_String  and type == cJSON_Raw */
     char *valuestring;
     /* writing to valueint is DEPRECATED, use cJSON_SetNumberValue instead */
-    int valueint;
+    int64_t valueint;
     /* The item's number, if type==cJSON_Number */
     double valuedouble;
 
@@ -213,7 +213,7 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);
 
 /* These utilities create an Array of count items.
  * The parameter count cannot be greater than the number of elements in the number array, otherwise array access will be out of bounds.*/
-CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count);
+CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int64_t *numbers, int count);
 CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count);
 CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count);
 CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char *const *strings, int count);

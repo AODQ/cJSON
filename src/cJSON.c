@@ -37,13 +37,14 @@
 #pragma warning (disable : 4001)
 #endif
 
-#include <string.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <limits.h>
 #include <ctype.h>
 #include <float.h>
+#include <limits.h>
+#include <math.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef ENABLE_LOCALES
 #include <locale.h>
@@ -355,17 +356,17 @@ loop_end:
     item->valuedouble = number;
 
     /* use saturation in case of overflow */
-    if (number >= INT_MAX)
+    if (number >= INT64_MAX)
     {
-        item->valueint = INT_MAX;
+        item->valueint = INT64_MAX;
     }
-    else if (number <= (double)INT_MIN)
+    else if (number <= (double)INT64_MIN)
     {
-        item->valueint = INT_MIN;
+        item->valueint = INT64_MIN;
     }
     else
     {
-        item->valueint = (int)number;
+        item->valueint = (int64_t)number;
     }
 
     item->type = cJSON_Number;
@@ -377,17 +378,17 @@ loop_end:
 /* don't ask me, but the original cJSON_SetNumberValue returns an integer or double */
 CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)
 {
-    if (number >= INT_MAX)
+    if (number >= INT64_MAX)
     {
-        object->valueint = INT_MAX;
+        object->valueint = INT64_MAX;
     }
-    else if (number <= (double)INT_MIN)
+    else if (number <= (double)INT64_MIN)
     {
-        object->valueint = INT_MIN;
+        object->valueint = INT64_MIN;
     }
     else
     {
-        object->valueint = (int)number;
+        object->valueint = (int64_t)number;
     }
 
     return object->valuedouble = number;
@@ -2424,17 +2425,17 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num)
         item->valuedouble = num;
 
         /* use saturation in case of overflow */
-        if (num >= INT_MAX)
+        if (num >= INT64_MAX)
         {
-            item->valueint = INT_MAX;
+            item->valueint = INT64_MAX;
         }
-        else if (num <= (double)INT_MIN)
+        else if (num <= (double)INT64_MIN)
         {
-            item->valueint = INT_MIN;
+            item->valueint = INT64_MIN;
         }
         else
         {
-            item->valueint = (int)num;
+            item->valueint = (int64_t)num;
         }
     }
 
@@ -2531,7 +2532,7 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void)
 }
 
 /* Create Arrays: */
-CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count)
+CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int64_t *numbers, int count)
 {
     size_t i = 0;
     cJSON *n = NULL;
