@@ -24,7 +24,9 @@
 /* JSON parser in C. */
 
 #pragma GCC diagnostic push
+#ifdef __unix__
 #pragma GCC diagnostic ignored "-Wimplicit-int-float-conversion"
+#endif
 
 /* disable warnings about old C89 functions in MSVC */
 #if !defined(_CRT_SECURE_NO_DEPRECATE) && defined(_MSC_VER)
